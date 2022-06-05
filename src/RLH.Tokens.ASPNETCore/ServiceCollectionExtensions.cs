@@ -12,7 +12,7 @@ namespace RLH.Tokens.ASPNETCore
         /// <param name="serviceCollection">ServiceCollection to populate</param>
         /// <param name="configuration">Configuration to locate 'TokenConfig' values</param>
         /// <returns>ServiceCollection to chain methods</returns>
-        public static ServiceCollection AddTokenService(this ServiceCollection serviceCollection, IConfiguration configuration)
+        public static IServiceCollection AddTokenService(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddScoped<ITokenService, OptionsTokenService>();
             serviceCollection.Configure<TokenConfig>(configuration.GetSection("TokenConfig"));
