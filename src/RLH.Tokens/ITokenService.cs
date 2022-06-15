@@ -1,4 +1,4 @@
-﻿using RLH.Result;
+﻿using RLH.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace RLH.Tokens
         /// <param name="tokenValue">The string value of the token</param>
         /// <param name="claims">(Optional) additional Claims to validate (should match those passed when creating the token)</param>
         /// <returns>Result class instance</returns>
-        public Result<bool> ValidateTokenOfType(TokenType type,string tokenValue,ICollection<Claim> claims = null );
+        public Result ValidateTokenOfType(TokenType type,string tokenValue,ICollection<Claim> claims = null );
 
     }
 }

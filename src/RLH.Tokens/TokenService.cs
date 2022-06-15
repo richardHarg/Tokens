@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.IdentityModel.Tokens;
-using RLH.Result;
+using RLH.Results;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -46,7 +46,7 @@ namespace RLH.Tokens
         /// <param name="tokenValue">The string value of the token</param>
         /// <param name="claims">(Optional) additional Claims to validate (should match those passed when creating the token)</param>
         /// <returns>Result class instance</returns>
-        public Result<bool> ValidateTokenOfType(TokenType type, string tokenValue, ICollection<Claim> claims = null)
+        public Result ValidateTokenOfType(TokenType type, string tokenValue, ICollection<Claim> claims = null)
         {
 
             var handler = new JwtSecurityTokenHandler();
@@ -57,7 +57,7 @@ namespace RLH.Tokens
             // Check if the string is formatted correctly and can be read by the handler, if this fails return error now
             if (handler.CanReadToken(tokenValue) == false)
             {
-                return Result<bool>.InvalidToken("token", $"Provided token is unable to read");
+                return Result.InvalidToken("token", $"Provided token is unable to read");
             }
            
             // Perform validation and return a list of ValidationErrors, if any
@@ -66,11 +66,11 @@ namespace RLH.Tokens
             // If there are any errors generated from the above checks return the correct Result status & pass errors
             if (validationErrors.Any())
             {
-                return Result<bool>.InvalidToken(validationErrors.ToList());
+                return Result.InvalidToken(validationErrors.ToList());
             }
 
             // If not return Success!
-            return Result<bool>.Success(true);
+            return Result.Success();
         }
 
         /// <summary>
