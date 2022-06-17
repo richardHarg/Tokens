@@ -70,5 +70,34 @@ namespace RLH.Tokens.Tests
 
 
         }
+
+
+        [Fact]
+        public void Using_Test()
+        {
+            // This is created manually but can be done via DI using the
+            // ASPNETCore Project
+
+            var config = new TokenConfig()
+            {
+                Audience = "TestAudience",
+                Issuer = "TestIssuer",
+                JWTKey = "&3h32SlghVhd284hfs"
+            };
+
+            using (var service = new TokenService(config))
+            {
+                // Create any additional claims to include in the token
+                List<Claim> claims = new List<Claim>()
+                {
+                    new Claim("MY_TYPE","my_type_value")
+                };
+
+                var newToken = service.IssueTokenOfType("my custom claim type",TimeSpan.FromHours(24), claims);
+
+
+                var validateResult = service.ValidateTokenOfType("my custom claim type", newToken.Value, claims);
+            }
+        }
     }
 }
