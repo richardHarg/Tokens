@@ -16,7 +16,7 @@ namespace RLH.Tokens
         /// <param name="type">Type of token to create</param>
         /// <param name="claims">(Optional) additional Claims</param>
         /// <returns>Generated Token class instance</returns>
-        public Token IssueTokenOfType(TokenType type, ICollection<Claim> claims = null);
+        public Token IssueTokenOfType(string type, TimeSpan duration, ICollection<Claim> claims = null);
 
         /// <summary>
         /// Validates a provided token of a given type, IF optional claims were included when creating the token
@@ -28,7 +28,7 @@ namespace RLH.Tokens
         /// <param name="tokenValue">The string value of the token</param>
         /// <param name="claims">(Optional) additional Claims to validate (should match those passed when creating the token)</param>
         /// <returns>Result class instance</returns>
-        public Result ValidateTokenOfType(TokenType type,string tokenValue,ICollection<Claim> claims = null );
+        public Result ValidateTokenOfType(string type,string tokenValue,ICollection<Claim> claims = null );
 
     }
 }

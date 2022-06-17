@@ -16,7 +16,7 @@ namespace RLH.Tokens
         /// <param name="value">string value of the token</param>
         /// <param name="created">DatetimeOffset UTC timestamp when the token was created</param>
         /// <param name="expiresIn">Timespan representing how long the token will remain valid</param>
-        internal Token(TokenType type, string value,DateTimeOffset created,TimeSpan expiresIn)
+        internal Token(string type, string value,DateTimeOffset created,TimeSpan expiresIn)
         {
             Type = type;
             Value = value;
@@ -27,7 +27,7 @@ namespace RLH.Tokens
         /// <summary>
         /// Type of the token
         /// </summary>
-        public readonly TokenType Type;
+        public readonly string Type;
         /// <summary>
         /// DatetimeOffset UTC when the token was created
         /// </summary>

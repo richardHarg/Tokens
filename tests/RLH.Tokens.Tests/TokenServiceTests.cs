@@ -10,11 +10,8 @@ namespace RLH.Tokens.Tests
         {
             var config = new TokenConfig()
             {
-                JWTDuration = TimeSpan.FromHours(48),
-                GeneralDuration = TimeSpan.FromHours(24),
                 Audience = "TestAudience",
                 Issuer = "TestIssuer",
-                GeneralKey = "65jdhasaskjGJd735231",
                 JWTKey = "&3h32SlghVhd284hfs"
             };
 
@@ -24,15 +21,52 @@ namespace RLH.Tokens.Tests
 
 
         [Fact]
-        public void Test1()
+        public void Valid_Token()
         {
             var claims = new List<Claim>();
 
-            var newToken = _service.IssueTokenOfType(TokenType.CONFIRM_ACCOUNT, claims);
+            var newToken = _service.IssueTokenOfType("confirm account",TimeSpan.FromHours(24), claims);
 
-            var result = _service.ValidateTokenOfType(TokenType.CONFIRM_ACCOUNT,newToken.Value);
+            var result = _service.ValidateTokenOfType("confirm account", newToken.Value);
 
-            Assert.Equal(Result.ResultStatus.Success, result.Status);
+            Assert.Equal(ResultStatus.Success, result.Status);
+
+
+        }
+
+        [Fact]
+        public void Invalid_Token_Wrong_Type()
+        {
+            var claims = new List<Claim>();
+
+            var newToken = _service.IssueTokenOfType("confirm account", TimeSpan.FromHours(24), claims);
+
+            var result = _service.ValidateTokenOfType("WrongType", newToken.Value);
+
+            Assert.Equal(ResultStatus.Tk_Invalid, result.Status);
+
+
+        }
+
+        [Fact]
+        public void Invalid_Token_Claim_Value_Mismatch()
+        {
+            var inClaims = new List<Claim>()
+            {
+                new Claim("A_TYPE","Value1")
+            };
+            var outClaims = new List<Claim>()
+            {
+                new Claim("A_TYPE","Value2")
+            };
+
+
+
+            var newToken = _service.IssueTokenOfType("confirm account", TimeSpan.FromHours(24), inClaims);
+
+            var result = _service.ValidateTokenOfType("confirm account", newToken.Value,outClaims);
+
+            Assert.Equal(ResultStatus.Tk_Invalid, result.Status);
 
 
         }
