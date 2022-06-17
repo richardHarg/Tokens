@@ -10,7 +10,7 @@ USAGE
 
 Create a new IEmailService instance (manually or via DI with .ASPNETCore project). 'TokenConfig' is passed to the constructor and contains the Key,Issuer and Audience values along with options on how inbound tokens should be validated.
 
-Tokens can be created and valiated by calling the 'IssueTokenOfType' and 'ValidateTokenOfType' Methods respectively.
+Tokens can be created and validated by calling the 'IssueTokenOfType' and 'ValidateTokenOfType' Methods respectively.
 
 ---
 CLASSES
